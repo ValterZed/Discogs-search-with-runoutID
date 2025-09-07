@@ -54,11 +54,13 @@ function resultChildAdder(rel){
     <a href="${link}" target="_blank">View on Discogs</a>
 
     `
+    
     document.getElementById("resultList").appendChild(div)
 }
 
 function displayResults(data){
     results = data["results"]
+    document.getElementById("accuracy").innerText = "Matches " + data["accuracy"] + "% of runout IDs given"
     for (let release of results){
         resultChildAdder(release)
     }

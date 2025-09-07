@@ -12,7 +12,8 @@ async function getDiscogsData(req, res) {
     try {
         let respResults = await searchDiscogs(searchTerms);
         res.json({
-            results: respResults
+            results: respResults[0], 
+            accuracy: respResults[1]
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -79,14 +80,20 @@ function parseResults(res, searchTerms){
     }
 
     let retValue = []
+    let accuracy = 100
 
     if ((resultsMatchingWithBarcodeTwice.length === 0)){
         if (resultsMatchingWithBarcodeOnce.length === 0){
             retValue = res
+            console.log("No runout matches found, returning all results")
+            accuracy = 0
         }
-        else{retValue = resultsMatchingWithBarcodeOnce}
+        else{retValue = resultsMatchingWithBarcodeOnce
+            console.log("Only one runout match found, returning those results")
+            accuracy = 50
+        }
     }
     else { retValue = resultsMatchingWithBarcodeTwice}
 
-    return retValue
+    return [retValue, accuracy]
 }
