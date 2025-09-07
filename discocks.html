@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+        <div id="searchParameters">
+            <form id="searchForm">
+                <label for="albumName">Album name:</label><br>
+                <input type="text" id="albumName" name="albumName"><br>
+
+                <label for="artistName">Artist name:</label><br>
+                <input type="text" id="artistName" name="artistName"><br>
+
+                <label for="formats">Format:</label>
+                <select name="formats" id="format">
+                    <option value="Vinyl">Vinyl</option>
+                    <option value="Cd">Cd</option>
+                    <option value="Casette">Casette</option>
+                    <option value="Album">Album</option>
+                </select><br>
+
+                <label for="country">Country:</label><br>
+                <input type="text" id="country" name="country"><br>
+
+                <label for="label">Label:</label><br>
+                <input type="text" id="label" name="label"><br>
+
+                <label for="year">Year:</label> <br>
+                <input type="text" id="year" name="year"><br>
+
+                <label for="runoutA">Runout side A:</label><br>
+                <input type="text" id="runoutA" name="runoutA"><br>
+
+                <label for="runoutB">Runout side B:</label><br>
+                <input type="text" id="runoutB" name="runoutB"><br>
+
+                <input type="button" id="submitButton" value="submit">
+            </form>
+        </div>
+        <divid id="results">
+            <h2>Results:</h2>
+            <div id="resultList">
+                
+            </div>
+
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="discocks.css">
+    <script src="discocks_htmlCorresponder.js"></script>
+</body>
+</html>
