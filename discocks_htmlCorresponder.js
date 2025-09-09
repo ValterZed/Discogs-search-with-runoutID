@@ -2,17 +2,53 @@ let yearSlider = document.getElementById("year")
 let yearOutput = document.getElementById("yearOutput")
 let submitBtn = document.getElementById("submitButton")
 
-
+let objOfResults = {}
 
 submitBtn.addEventListener("click", submit)
+
+function mySort(array, method){
+    if (!array) return []
+    if (method === "year"){
+        array.sort((a, b) => a.year - b.year);
+    }
+    if (method === "want"){
+        array.sort((a, b) => a["community"]["want"] - b["community"]["want"]);
+    }
+    if (method === "have"){
+        array.sort((a, b) => a["community"]["have"] - b["community"]["have"]);
+    }
+    if (method === "label"){
+        array.sort((a, b) => {
+            if (a["label"][0] < b["label"][0]) return -1;
+            if (a["label"][0] > b["label"][0]) return 1;
+            return 0;
+        });
+    }
+
+    return array
+}
+
+function sortHandler(){
+    if (!objOfResults["results"]){return}
+    let accSave = objOfResults["accuracy"]
+    objOfResults = {results: mySort(objOfResults["results"], gv("sort")), accuracy: accSave}
+    killChildren()
+    displayResults(objOfResults)
+}
+
+document.getElementById("sort").onchange = sortHandler
 
 function gv(identification){
     return document.getElementById(identification).value
 }
 
-function submit(){
+function killChildren(){
     const oldResults = document.querySelectorAll(".resultEntry")
     oldResults.forEach(resultEntry => resultEntry.remove());
+}
+
+function submit(){
+    killChildren()
 
     let albumName = gv("albumName")
     let artistName = gv("artistName")
@@ -77,6 +113,8 @@ function sendToBackend(searchTerms) {
 .then(response => response.json())
 .then(data => {
     console.log('Response from backend:', data);
+    objOfResults["results"] = data["results"]
+    objOfResults["accuracy"] = data["accuracy"]
     displayResults(data);
 })
 .catch(error => {

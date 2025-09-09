@@ -11,12 +11,17 @@
     border-radius: 1vh;
     padding: 1vh;
     background-color: lightgray;
-    width: 20vh;
-    height: 45vh;
+    width: 30vh;
+    /* height: 60vh; */
+}
+
+#searchParameters input{
+    width: 90%;
+    /* height: 2.5vh; */
 }
 
 #results{
-    margin-left: 30vh;
+    margin-left: 40vh;
     margin-top: 1vh;
     display: flex;
     flex-direction: column;
