@@ -5,6 +5,7 @@ let submitBtn = document.getElementById("submitButton")
 let objOfResults = {}
 
 submitBtn.addEventListener("click", submit)
+document.getElementById("reverseSort").addEventListener("click", rev)
 
 function mySort(array, method){
     if (!array) return []
@@ -24,14 +25,26 @@ function mySort(array, method){
             return 0;
         });
     }
+    if (method === "reverse"){
+        array.reverse()
+    }
 
     return array
 }
 
-function sortHandler(){
+function rev(){
+    sortHandler(true)
+}
+
+function sortHandler(manualMethod=false){
     if (!objOfResults["results"]){return}
     let accSave = objOfResults["accuracy"]
-    objOfResults = {results: mySort(objOfResults["results"], gv("sort")), accuracy: accSave}
+    if (!manualMethod){
+        objOfResults = {results: mySort(objOfResults["results"], gv("sort")), accuracy: accSave}
+    }
+    else{
+        objOfResults = {results: mySort(objOfResults["results"], "reverse"), accuracy: accSave}
+    }
     killChildren()
     displayResults(objOfResults)
 }
@@ -87,6 +100,7 @@ function resultChildAdder(rel){
     <img id="thumbImg" src="${coverImage}" alt="Cover image not found" class="coverImage">
     <h2>${title} (${year})</h2>
     <h4 id="moreData">${rel["country"]} - ${rel["label"][0]} - ${rel["format"][0]}</h4>
+    <h4 id="wantHave">Want: ${rel["community"]["want"]} | Have: ${rel["community"]["have"]}</h4>
     <a href="${link}" target="_blank">View on Discogs</a>
 
     `

@@ -44,19 +44,20 @@
             </form>
         </div>
         <div id="results">
-            <h2>Results:</h2>
-
-            <label for="sort">Sort:</label>
-            <select name="sort" id="sort">
-                <option value="year">Year</option>
-                <option value="label">Label</option>
-                <option value="want">Want</option>
-                <option value="have">Have</option>
-            </select><br>
-
-            <div id="resultList">
-                
+            <div id="resultHeader">
+                <h2>Results:</h2>
+                <h3 id="resultCount"></h3>
+                <label for="">Sort:</label>
+                <select name="sort" id="sort">
+                    <option value="year">Year</option>
+                    <option value="label">Label</option>
+                    <option value="want">Want</option>
+                    <option value="have">Have</option>
+                </select><br>
+                <button id="reverseSort">Reverse List</button>
             </div>
+            
+            <div id="resultList"></div>
 
         </div>
     </div>
