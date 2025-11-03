@@ -15,7 +15,7 @@ app.use(express.json());
 
 //check if dependencies are installed
 if (!info["installed"]){
-    console.log("Dependencies not installed. Please run Installation.js first.")
+    console.log("Dependencies not installed. Please run Installation.bat first.")
     process.exit(1);
 }
 
