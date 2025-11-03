@@ -1,3 +1,3 @@
 @ECHO OFF
-node "installation.js"
+node "scripts\installation.js"
 PAUSE

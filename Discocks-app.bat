@@ -1,3 +1,3 @@
 @ECHO OFF
-node "discocksRC.js"
+node "scripts\discocksRC.js"
 PAUSE
