@@ -12,7 +12,11 @@ If this is the first time you are starting the app, run the file called
 > **installation.bat**
 > 
 After it has finished run  
-> **discocks.app.bat**
+> **discocks-app.bat**
 >  
-To start the  app  
+in order to start the app.  
 The app should immediately after open in a browser window for you to use.  
+Exit the app by pressing  
+> **Ctrl+C**
+>
+in the terminal.
