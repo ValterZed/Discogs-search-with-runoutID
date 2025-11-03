@@ -55,7 +55,7 @@ app.listen(3000, () => {
 
 app.post('/api/discogs', getDiscogsData);
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+app.listen(3000, () => console.log('Exit program using Ctrl+C in the terminal'));
 
 
 const client = new Discogs({ userToken: 'tJAytIyyvuJKtVBggHpwVUkgZgjnWcFTwDOvAvft' });
