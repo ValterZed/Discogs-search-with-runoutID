@@ -1,3 +1,2 @@
 @ECHO OFF
- msiexec /i "myPackages\node-v24.11.0-x64.msi" 
-PAUSE
+ msiexec /i "nodePackage\node-v24.11.0-x64.msi" 
