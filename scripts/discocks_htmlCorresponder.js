@@ -1,11 +1,15 @@
 let yearSlider = document.getElementById("year")
 let yearOutput = document.getElementById("yearOutput")
 let submitBtn = document.getElementById("submitButton")
+let addRunoutBtn = document.getElementById("addRunout")
 
 let objOfResults = {}
+let amntOfRunouts = 2
 
 submitBtn.addEventListener("click", submit)
 document.getElementById("reverseSort").addEventListener("click", rev)
+addRunoutBtn.addEventListener("click", addRunout)
+
 
 function mySort(array, method){
     if (!array) return []
@@ -62,6 +66,7 @@ function killChildren(){
 
 function submit(){
     killChildren()
+    let runouts = []
 
     let albumName = gv("albumName")
     let artistName = gv("artistName")
@@ -69,8 +74,9 @@ function submit(){
     let country = gv("country")
     let label = gv("label")
     let year = gv("year")
-    let runoutA = gv("runoutA")
-    let runoutB = gv("runoutB")
+    for (let i = 1; i <= amntOfRunouts; i++){
+        runouts.push(gv("runout"+(i)))
+    }
 
     let searchTerms = {album: albumName,
         artist: artistName,
@@ -78,12 +84,19 @@ function submit(){
         country: country,
         label: label,
         year: year,
-        runoutA: runoutA,
-        runoutB: runoutB
+        runouts: runouts
     }
 
     console.log(searchTerms)
     sendToBackend(searchTerms)
+}
+
+function addRunout(){
+    amntOfRunouts++;
+    let runoutsDiv = document.getElementById("runouts")
+    runoutsDiv.innerHTML += `
+    <label for="runout${amntOfRunouts}">Extra Runout Field:</label><br>
+    <input type="text" id="runout${amntOfRunouts}" name="runout${amntOfRunouts}"><br> `
 }
 
 function resultChildAdder(rel){

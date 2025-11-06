@@ -87,45 +87,31 @@ function searchDiscogs(searchTerms){
 }
 
 function parseResults(res, searchTerms){
-    let resultsMatchingWithBarcodeTwice = []
-    let resultsMatchingWithBarcodeOnce = []
-    let runoutA = searchTerms["runoutA"]
-    let runoutB = searchTerms["runoutB"]
+    let resultsMatchingWithBarcode = {}
+    let runouts = searchTerms["runouts"]
+
+    for (let i = 0; i <= runouts.length; i++){resultsMatchingWithBarcode[Math.round((i/runouts.length)*100)] = []}
     
     for (let rel of res){
-        let aTrue = false
-        let bTrue = false
-        for (let barcode of rel.barcode){
-            if (barcode.toLowerCase().includes(runoutA.toLowerCase())){
-                aTrue = true
-            }
-            if (barcode.toLowerCase().includes(runoutB.toLowerCase())){
-                bTrue = true
+        let hits = 0
+        for (let runout of runouts){
+            for (let barcode of rel.barcode){
+                if (barcode.toLowerCase().includes(runout.toLowerCase())){
+                    hits++
+                    break
+                }
             }
         }
-        if (aTrue && bTrue){
-            resultsMatchingWithBarcodeTwice.push(rel)
-        }
-        if ((aTrue || bTrue) && !(aTrue && bTrue)){
-            resultsMatchingWithBarcodeOnce.push(rel)
+        let accuracy = Math.round((hits/runouts.length)*100)
+        resultsMatchingWithBarcode[accuracy].push(rel)
+    }
+
+    let highestAcc = 0
+    for (let key in resultsMatchingWithBarcode){
+        if (resultsMatchingWithBarcode[key].length > 0){
+            highestAcc = key
         }
     }
 
-    let retValue = []
-    let accuracy = 100
-
-    if ((resultsMatchingWithBarcodeTwice.length === 0)){
-        if (resultsMatchingWithBarcodeOnce.length === 0){
-            retValue = res
-            console.log("No runout matches found, returning all results")
-            accuracy = 0
-        }
-        else{retValue = resultsMatchingWithBarcodeOnce
-            console.log("Only one runout match found, returning those results")
-            accuracy = 50
-        }
-    }
-    else { retValue = resultsMatchingWithBarcodeTwice}
-
-    return [retValue, accuracy]
+    return [resultsMatchingWithBarcode[highestAcc], highestAcc]
 }

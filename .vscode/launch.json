@@ -13,7 +13,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\discocks.js"
+            "program": "${workspaceFolder}\\scripts\\discocksRC.js"
         }
     ]
 }

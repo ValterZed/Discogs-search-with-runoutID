@@ -50,3 +50,16 @@ img{
     margin-top: 1vh;
     margin-right: 1vh;
 }
+
+#addRunout{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 95%;
+    height: 4vh;
+}
+
+#submitButton{
+    margin-bottom: 2vh;
+    width: 95%;
+    height: 4vh;
+}
