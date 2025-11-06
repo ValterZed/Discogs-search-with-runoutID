@@ -5,5 +5,5 @@
         "cors",
         "path"
     ],
-    "installed": true
+    "installed": false
 }
