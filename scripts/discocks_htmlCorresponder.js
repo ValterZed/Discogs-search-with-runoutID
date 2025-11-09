@@ -1,7 +1,12 @@
+const { use } = require("react")
+
 let yearSlider = document.getElementById("year")
 let yearOutput = document.getElementById("yearOutput")
 let submitBtn = document.getElementById("submitButton")
 let addRunoutBtn = document.getElementById("addRunout")
+let collapseSetBtn = document.getElementById("openSettings")
+let useLocalhostCheckbox = document.getElementById("localhostToggle")
+
 
 let objOfResults = {}
 let amntOfRunouts = 2
@@ -9,6 +14,8 @@ let amntOfRunouts = 2
 submitBtn.addEventListener("click", submit)
 document.getElementById("reverseSort").addEventListener("click", rev)
 addRunoutBtn.addEventListener("click", addRunout)
+collapseSetBtn.addEventListener("click", collapseSettings)
+useLocalhostCheckbox.addEventListener("change", localHostToggleHandler)
 
 
 function mySort(array, method){
@@ -99,6 +106,22 @@ function addRunout(){
     <input type="text" id="runout${amntOfRunouts}" name="runout${amntOfRunouts}"><br> `
 }
 
+function collapseSettings(){
+    let settingsBar = document.getElementById("settingsBar")
+    if (settingsBar.style.display === "block"){
+        settingsBar.style.display = "none"
+        document.getElementById("openSettings").innerText = "Show Settings"
+    }
+    else{
+        settingsBar.style.display = "block"
+        document.getElementById("openSettings").innerText = "Hide"
+    }
+}
+
+function localHostToggleHandler(){
+    let useLocalhost = useLocalhostCheckbox.checked
+}
+
 function resultChildAdder(rel){
     let year = rel["year"]
     let title = rel["title"]
@@ -129,8 +152,21 @@ function displayResults(data){
     }
 }
 
+function getLocalIPv4(){
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            if (net.family === 'IPv4' && !net.internal) {
+                return net.address;
+            }
+        }
+    }
+    return '127.0.0.1';
+}
+
+
 function sendToBackend(searchTerms) {
-    fetch('http://localhost:3000/api/discogs', {
+    fetch(`${window.location.href}api/discogs`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'

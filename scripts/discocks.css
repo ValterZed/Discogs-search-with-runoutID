@@ -63,3 +63,15 @@ img{
     width: 95%;
     height: 4vh;
 }
+
+#settingsBig{
+    position: fixed;
+    margin-right: 10vh;
+    margin-top: 1vh;
+    border: 1px solid black;
+    border-radius: 1vh;
+    padding: 1vh;
+    background-color: lightgray;
+    width: 30vh;
+    right: 2vh;
+}

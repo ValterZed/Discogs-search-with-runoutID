@@ -1,0 +1,10 @@
+{
+    "req": [
+        "express",
+        "disconnect",
+        "cors",
+        "path",
+        "qrcode"
+    ],
+    "installed": true
+}

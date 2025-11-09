@@ -1,5 +1,5 @@
 const path = require('path');
-const info = require(path.join(__dirname, 'requirements.json'))
+const info = require(path.join(__dirname, `/data/requirements.json`))
 //check if dependencies are installed
 if (!info["installed"]){
     console.log("Dependencies not installed. Please run Installation.js first.")
@@ -10,6 +10,8 @@ const Discogs = require('disconnect').Client;
 const express = require('express');
 const app = express();
 const cors = require("cors");
+const os = require('os');
+let prefData = require(path.join(__dirname, `/data/data.json`))
 app.use(cors());
 app.use(express.json());
 
@@ -36,29 +38,45 @@ async function getDiscogsData(req, res) {
     }
 }
 
+function getLocalIPv4(){
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+        for (const net of nets[name]) {
+            if (net.family === 'IPv4' && !net.internal) {
+                return net.address;
+            }
+        }
+    }
+    return '127.0.0.1';
+}
+let usedIP = "localhost";
+if (prefData["localhost"] === false){
+    usedIP = getLocalIPv4();
+}
+
 
 app.use(express.static(path.join(__dirname)));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'discocks.html'));
+    res.sendFile(path.join(__dirname, 'discocks.html'))
 });
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+app.listen(3000, "0.0.0.0", () => {
+    console.log(`Server running on http://${usedIP}:3000`)
     // Open default browser on Windows
     const { exec } = require('child_process');
-    exec(`cmd /c start "" "http://localhost:3000"`, (err) => {
-        if (err) console.error('Failed to open browser:', err);
-    });
-});
+    exec(`cmd /c start "" "http://${usedIP}:3000"`, (err) => {
+        if (err) console.error('Failed to open browser:', err)
+    })
+})
 // ...
 
 
 app.post('/api/discogs', getDiscogsData);
 
-app.listen(3000, () => console.log('Exit program using Ctrl+C in the terminal'));
+app.listen(3000, () => console.log('Exit program using Ctrl+C in the terminal'))
 
 
-const client = new Discogs({ userToken: 'tJAytIyyvuJKtVBggHpwVUkgZgjnWcFTwDOvAvft' });
+const client = new Discogs({ userToken: 'tJAytIyyvuJKtVBggHpwVUkgZgjnWcFTwDOvAvft' })
 const db = client.database();
 /* db.getRelease(176126, function(err, data){
     console.log(data);

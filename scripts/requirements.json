@@ -1,9 +1,0 @@
-{
-    "req": [
-        "express",
-        "disconnect",
-        "cors",
-        "path"
-    ],
-    "installed": false
-}
